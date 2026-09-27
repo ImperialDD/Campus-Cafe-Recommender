@@ -309,10 +309,15 @@ if not st.session_state.started:
 
 
 # ---------- data loading (only after name entered) ----------
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 uploaded = st.sidebar.file_uploader("Upload survey CSV (optional)", type=["csv"])
-data_path = "data/survey_data.csv"
+data_path = BASE_DIR / "data" / "survey_data.csv"
+
 if uploaded is not None:
-    data_path = "data/_uploaded.csv"
+    data_path = BASE_DIR / "data" / "_uploaded.csv"
     with open(data_path, "wb") as f:
         f.write(uploaded.getvalue())
 
